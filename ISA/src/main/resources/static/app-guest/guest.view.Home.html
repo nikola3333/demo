@@ -1,0 +1,56 @@
+<div>
+	<div class="col-sm-8 col-sm-offset-11">
+		<a ng-click = "vm.logout()">Logout</a>
+	</div>
+	<div class="jumbotron">
+		<div class="container">
+			<div class="col-sm-8 col-sm-offset-2">
+				<ul class="nav nav-pills nav-justified">
+					<li role="presentation" ng-class="{active : vm.homeSelected}"><a ng-click="vm.showHome()">Home</a></li>
+					<li role="presentation" ng-class="{active : vm.restaurantsSelected}"><a ng-click="vm.showRestaurants()">Restaurants</a></li>
+					<li role="presentation" ng-class="{active : vm.friendsSelected}"><a ng-click="vm.showFriends()">Friends</a></li>
+					<li role="presentation" ng-class="{active : vm.profileSelected}"><a ng-click="vm.showProfile()">Profile</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class = "row"  ng-init = "vm.showHome()">
+		<div class = " table-responsive col-sm-8 col-sm-offset-2">					
+			<table class = "table">
+				<caption><b>Upcoming events</b></caption>
+				<tr>
+					<th>Restaurant</th>
+					<th>Starts</th>
+					<th>Ends</th>
+					<th>Confirmed invitation</th>
+				</tr>
+				<tr ng-repeat = "res in vm.reservations">
+					<td>{{res.restaurant.name}}</td>
+					<td>{{vm.getDate(res.date)}}</td>
+					<td>{{vm.getDate(res.stay)}}</td>
+					<td><span ng-hide = "friend.id == vm.loggedUser.id" ng-repeat = "friend in res.guests"> {{friend.firstName}} {{friend.lastName}}; </span></td>
+					<td><button style = "min-width:100px" class = "btn btn-success" ng-click = "vm.addToSession(res.id)">Order</button></td>
+					<td><button style = "min-width:100px" ng-show = "res.guests[0].id == vm.loggedUser.id" class = "btn btn-danger" ng-click = "vm.cancelReservation(res.id)">Cancel reservation</button></td>
+				</tr>
+			</table>
+		</div>
+		<div class = " table-responsive col-sm-8 col-sm-offset-2">					
+			<table class = "table">
+				<caption><b>History</b></caption>
+				<tr>
+					<th>Restaurant</th>
+					<th>Starts</th>
+					<th>Friends</th>
+				</tr>
+				<tr ng-repeat = "res in vm.history">
+					<td>{{res.restaurant.name}}</td>
+					<td>{{vm.getDate(res.date)}}</td>
+					<td><span ng-repeat = "friend in res.guests"> {{friend.firstName}} {{friend.lastName}}; </span></td>
+					<td><button style = "min-width:100px" class = "btn btn-success" ng-click = "vm.addToSession(res.id)">Rate</button></td>
+				</tr>
+			</table>
+		</div>
+	</div>
+	
+	<!-- / selektovana kartica za profil-->
+</div>

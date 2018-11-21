@@ -1,0 +1,35 @@
+
+<div class="jumbotron">
+	<div class="container">
+		<div class="col-sm-8 col-sm-offset-2">
+			<div class="col-md-6 col-md-offset-3">
+				<h2>Register Restaurant</h2>
+			    <form name="form" ng-submit="vm.register()" role="form">
+			        <div class="form-group" ng-class="{ 'has-error': form.name.$dirty && form.name.$error.required }">
+			            <label for="name">Name</label>
+			            <input type="name" name="name" id="name" class="form-control" ng-model="vm.restaurant.name" required />
+			            <span ng-show = "form.name.$dirty && form.name.$error.required" class="help-block">First name is required</span>
+			         </div>
+			         
+			        <div class="form-group" ng-class="{ 'has-error': form.typeOfRestaurant.$dirty && form.typeOfRestaurant.$error.required }">
+			            <label for="typeOfRestaurant">Type</label>
+			            <input type="typeOfRestaurant" name="typeOfRestaurant" id="typeOfRestaurant" class="form-control" ng-model="vm.restaurant.typeOfRestaurant" required />
+			            <span ng-show = "form.typeOfRestaurant.$dirty && form.typeOfRestaurant.$error.required" class="help-block">Last name is required</span>
+			         </div>
+			     			        
+			        <div class="form-actions">
+			            <button type="submit" ng-disabled="form.$invalid " class="btn btn-primary">Register</button>
+			            <a href="#!/login" class="btn btn-link">Cancel</a>
+			        </div>
+			       
+			   
+			    </form>
+				
+			      
+						
+			</div>
+			
+			</div>
+		</div>
+	</div>
+		

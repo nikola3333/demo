@@ -1,0 +1,208 @@
+
+<div>
+	<div class="col-sm-8 col-sm-offset-11">
+		<a ng-click = "vm.logout()">Logout</a>
+	</div>
+	<div class="jumbotron">
+		<div class="container">
+			<div class="col-sm-8 col-sm-offset-2">
+				<ul class="nav nav-pills nav-justified">
+					<li role="presentation" ng-class="{active : vm.homeSelected}"><a ng-click="vm.showHome()">Home</a></li>
+					<li role="presentation" ng-class="{active : vm.restaurantsSelected}"><a ng-click="vm.showRestaurants()">Restaurants</a></li>
+					<li role="presentation" ng-class="{active : vm.friendsSelected}"><a ng-click="vm.showFriends()">Friends</a></li>
+					<li role="presentation" ng-class="{active : vm.profileSelected}"><a ng-click="vm.showProfile()">Profile</a></li>
+				</ul>
+
+			</div>
+		</div>
+	</div>
+	<!-- / selektovana kartica za profil-->
+
+	<div ng-init = "vm.showProfile()">
+
+		
+		<div class="container">
+			<div class="row">
+				<div class="col-md-6 col-md-offset-3">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h4>My account</h4>
+						</div>
+						<div class="panel-body">
+							<div class="box box-info">
+								<div class="box-body">
+									<div class="col-sm-6">
+										<div align="center">
+											<img alt="User Pic"
+												src="https://x1.xingassets.com/assets/frontend_minified/img/users/nobody_m.original.jpg" id="profile-image1" class="img-circle img-responsive">
+											<!--Upload Image Js And Css-->
+
+										</div>
+										<br>
+										<!-- /input-group -->
+									</div>
+									<div class="col-sm-6">
+										<h4 style="color: #00b1b1;">{{vm.loggedUser.firstName}} {{vm.loggedUser.lastName}}</h4>
+									</div>
+									<div class="col-sm-6">
+										<h4><span ng-show = "vm.successUpdate" class = "alert alert-success"> Successfully updated </span></h4>
+									</div>
+									<div class="clearfix"></div>
+							
+									<hr style="margin: 5px 0 5px 0;">
+
+
+									<div class="col-sm-5 col-xs-6 tital ">First Name:</div>
+									<div ng-hide = "vm.update" class="col-sm-7 col-xs-6 ">{{vm.loggedUser.firstName}}</div>
+									<div ng-show = "vm.update" class="col-sm-7"><input type = "text" ng-model = "vm.loggedUser.firstName" class = "form-control"></div>
+									<div class="clearfix"></div>
+									<div class="bot-border"></div>
+									<div>
+										<br>
+									</div>
+									<div class="col-sm-5 col-xs-6 tital ">Last Name:</div>
+									<div ng-hide = "vm.update" class="col-sm-7">{{vm.loggedUser.lastName}}</div>
+									<div ng-show = "vm.update" class="col-sm-7"><input type = "text" ng-model = "vm.loggedUser.lastName"class = "form-control"></div>
+									<div class="clearfix"></div>
+									<div class="bot-border"></div>
+									<div>
+										<br>
+									</div>
+									<div class="col-sm-5 col-xs-6 tital ">Email:</div>
+									<div class="col-sm-7">{{vm.loggedUser.email}}</div>
+									<div class="clearfix"></div>
+									<div class="bot-border"></div>
+									<div>
+										<br>
+									</div>
+									<div class="col-sm-5 col-xs-6 tital ">Password:</div>
+									<div ng-hide = "vm.update" class="col-sm-7">{{vm.loggedUser.password}}</div>
+									<div ng-show = "vm.update" class="col-sm-7"><input type = "password" ng-model = "vm.loggedUser.password"class = "form-control"></div>
+
+									<div class="clearfix"></div>
+									<div class="bot-border"></div>
+									<div>
+										<br>
+									</div>									
+									<div class="col-sm-5 col-xs-6 tital ">Number of reservations:</div>
+									<div  class="col-sm-7">44</div>
+									
+									<div class="clearfix"></div>
+									<div class="bot-border"></div>
+									<div>
+										<br>
+									</div>
+									<div class="bot-border"></div>
+									<div ng-hide = "vm.update" class="col-sm-6">
+										<button type = "button" style = "width:150px" class = "btn btn-default" ng-click = "vm.updateAccount()">Edit</button>
+									</div>
+									<div ng-show = "vm.update" class="col-sm-3 ">
+										<button type = "button" style = "width:150px" class = "btn btn-default" ng-click = "vm.saveChanges()">Confirm changes</button>
+									</div>
+									<div ng-show = "vm.update" class="col-sm-3 col-sm-offset-1">
+										<button type = "button" style = "width:150px" class = "btn btn-default" ng-click = "vm.getLoggedUser()">Cancel</button>
+									</div>
+									<!-- /.box-body -->
+								</div>
+								<!-- /.box -->
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<br>
+			<br>
+			<br>
+		<!-- /input-group -->
+		</div>
+
+		<div class="row" >
+			<div class="col-lg-5">
+				<div class="input-group">
+					<input type="text" class="form-control" placeholder="Search for..."  ng-model = "vm.searchCondition">
+					<span class="input-group-btn">
+						<button class="btn btn-default" style = "width:150px" type="button" ng-click = vm.searchNoneFriends()><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Search
+						</button>
+					</span>
+				</div>
+			</div>
+		</div>
+
+		<div class="row ">
+				<div class="col-md-5">
+					<table class="table table-hover" ng-init = "vm.searchNoneFriends()">
+						<!-- / prikaz  svih osoba koji su prijatelji,kojima je poslat zahtev ili od kojih primljen zahtev-->
+							<tr ng-repeat="friend in vm.friends" ng-click="vm.showSelectedPerson(vm.friends[$index])">
+								<td>{{friend.firstName}} {{friend.lastName}}</td>
+								<td class="text-right">
+								<button type="button" style = "width:150px" class="btn btn-danger" ng-click="vm.removeFromFriendsList($index)">Remove friend</button>
+								
+								</td>
+							</tr>
+							<tr ng-repeat="friend in vm.noneFriends" ng-click="vm.showSelectedPerson(vm.noneFriends[$index])">
+								<td>{{friend.firstName}} {{friend.lastName}}</td>
+								<td class="text-right">
+								<button type="button" style = "width:150px" class="btn btn-primary" ng-click="vm.sendFriendRequest($index)">Add friend</button>
+								</td>
+							</tr>
+							<tr ng-repeat="friendship in vm.friendRequests" ng-click = "vm.showSelectedPersonRequest($index)">
+								<td ng-hide = "friendship.requestSender.email == vm.loggedUser.email">{{friendship.requestSender.firstName}} {{friendship.requestSender.lastName}}</td>
+								<td ng-show = "friendship.requestSender.email == vm.loggedUser.email">{{friendship.requestResponder.firstName}} {{friendship.requestResponder.lastName}}</td>
+								<td class="text-right">
+								<button type="button" ng-hide = "friendship.requestSender.email == vm.loggedUser.email" style = "width:150px" class="btn btn-success" ng-click="vm.acceptFriendRequest($index)">Accept request</button>
+								<button type="button" ng-hide = "friendship.requestSender.email == vm.loggedUser.email" style = "width:150px" class="btn btn-danger" ng-click="vm.declineFriendRequest($index)">Decline</button>
+								<button type="button" ng-show = "friendship.requestSender.email == vm.loggedUser.email" style = "width:150px" class="btn btn-danger" ng-click="vm.declineFriendRequest($index)">Cancel request</button>
+								</td>
+							</tr>
+					</table>
+				</div>
+
+			<div class="col-md-5 col-md-offset-1">
+				<div class="panel panel-default">
+
+					<div class="panel-body">
+						<div class="col-sm-4">
+							<br>
+							<!-- /input-group -->
+						</div>
+						<div class="clearfix"></div>
+						<div class="col-sm-5 col-xs-6 tital ">First Name:</div>
+						<div class="col-sm-7 col-xs-6 ">{{vm.selectedPerson.name}}</div>
+						<div class="clearfix"></div>
+						<div class="bot-border"></div>
+						<div>
+							<br>
+						</div>
+						<div class="col-sm-5 col-xs-6 tital ">Last Name:</div>
+						<div class="col-sm-7">{{vm.selectedPerson.lastName}}</div>
+						<div class="clearfix"></div>
+						<div class="bot-border"></div>
+						<div>
+							<br>
+						</div>
+						<div class="col-sm-5 col-xs-6 tital ">Email:</div>
+						<div class="col-sm-7">{{vm.selectedPerson.email}}</div>
+						<div class="clearfix"></div>
+						<div class="bot-border"></div>
+						<div>
+							<br>
+						</div>
+						<div class="col-sm-5 col-xs-6 tital ">Number of reservations:</div>
+						<div class="col-sm-7">/</div>
+						<div class="clearfix"></div>
+						<div class="bot-border"></div>
+					</div>
+				</div>
+			</div>
+			</div>
+			<!-- OVDE CE BITI PRIKAZAN POSTOJECI PRIJATELJI -->
+
+			
+
+
+
+</div>
+</div>

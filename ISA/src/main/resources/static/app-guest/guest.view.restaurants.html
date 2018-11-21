@@ -1,0 +1,94 @@
+<div>	
+	<div>
+		<div class="col-sm-8 col-sm-offset-11">
+			<a ng-click = "vm.logout()">Logout</a>
+		</div>
+		<div class="jumbotron">
+			<div class="container">
+				<div class="col-sm-8 col-sm-offset-2">
+				<ul class="nav nav-pills nav-justified">
+					<li role="presentation" ng-class="{active : vm.homeSelected}"><a ng-click="vm.showHome()">Home</a></li>
+					<li role="presentation" ng-class="{active : vm.restaurantsSelected}"><a ng-click="vm.showRestaurants()">Restaurants</a></li>
+					<li role="presentation" ng-class="{active : vm.friendsSelected}"><a ng-click="vm.showFriends()">Friends</a></li>
+					<li role="presentation" ng-class="{active : vm.profileSelected}"><a ng-click="vm.showProfile()">Profile</a></li>
+				</ul>
+				</div>
+			</div>
+		</div>
+		<!-- / selektovana kartica za profil-->
+	</div>
+	<div class = "row">
+
+			<div class="  col-md-2 col-md-offset-1">
+				<input type="text" class="form-control" placeholder="Search for..."  ng-change = "vm.searchRestaurants()" ng-model = "vm.searchRestaurantsCondition">
+			</div>
+			<span class="  col-md-2">
+				<select class="form-control" data-ng-model = "vm.sortRestaurantsCriteria" ng-change = "vm.sortCriteriaChanged(vm.sortRestaurantsCriteria)"
+				data-ng-options="criteria.name for criteria in vm.criterias track by criteria.id"> 
+					
+				</select>
+			</span>
+	</div>
+	<div ng-init = "vm.showRestaurants()">
+		<div class = "row">
+			<div ng-init = "vm.getAllRestaurants()" class = "col-md-4 col-md-offset-1">
+				<ul class="list-group">
+					<li ng-repeat = "restaurant in vm.restaurants" class="list-group-item "  ng-click = "vm.setSelectedRestaurant($index)">
+					<b>{{restaurant.name}}&nbsp&nbsp&nbsp&nbsp   ({{restaurant.typeOfRestaurant}})</b>
+					</li>
+				</ul>
+			</div>
+			<div class = "col-md-5 col-md-offset-1">
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<div class="col-sm-4">
+							<br>
+							<!-- /input-group -->
+						</div>
+						<div class="clearfix"></div>
+						<div class="col-sm-5 col-xs-6 tital ">Name:</div>
+						<div class="col-sm-7 col-xs-6 ">{{vm.selectedRestaurant.name}}</div>
+						<div class="clearfix"></div>
+						<div class="bot-border"></div>
+						<div>
+							<br>
+						</div>
+						<div class="col-sm-5 col-xs-6 tital ">Type  of restaurant:</div>
+						<div class="col-sm-7">{{vm.selectedRestaurant.typeOfRestaurant}}</div>
+						<div class="clearfix"></div>
+						<div class="bot-border"></div>
+						<div>
+							<br>
+						</div>
+						<div class="col-sm-5 col-xs-6 tital ">Adresa:</div>
+						<div class="col-sm-7">{{vm.selectedRestaurant.address}}</div>
+						<div class="clearfix"></div>
+						<div class="bot-border"></div>
+						<div>
+							<br>
+						</div>
+						<div class="col-sm-5 col-xs-6 tital ">Ocena:</div>
+						<div class="col-sm-7">{{vm.selectedRestaurant.mark}}</div>
+						<div class="clearfix"></div>
+						<div class="bot-border"></div>
+						<div>
+							<br>
+						</div>
+						<div class="col-sm-5 col-xs-6 tital ">Ocena prijatelja:</div>
+						<div class="col-sm-7"></div>
+						<div class="clearfix"></div>
+						<div class="bot-border"></div>
+						<div>
+							<br>
+						</div>
+						<div ><button class = 'btn btn-primary btn-block' ng-click = "vm.reserve()">RESERVE</button></div>
+						<div class="col-sm-7"></div>
+						<div class="clearfix"></div>
+						<div class="bot-border"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</div>

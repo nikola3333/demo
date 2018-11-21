@@ -1,0 +1,77 @@
+<div>
+	<div  class = "col-sm-1 " style = "float:left">
+		<a href = "/#!/homePage">Home</a>
+	</div>
+
+	<div align="center" class="alert alert-success"> 
+ 		<b>ORDER FOOD</b> 
+	</div>
+	
+	<div class = "row">
+		<div class = " table-responsive col-sm-4 col-sm-offset-1">					
+			<table class = "table " >
+				<caption><b>MENU</b></caption>
+				<tr>
+					<th>Name</th>
+					<th>Description</th>
+					<th>Price</th>
+				</tr>
+				<tr ng-repeat = "f in vm.restaurant.menu">
+					<td>{{f.name}}</td>
+					<td>{{f.text}}</td>
+					<td>{{f.price}}</td>
+					<td><button class = "btn btn-success" ng-click = "vm.addFood($index)">ORDER</button></td>
+				</tr>
+			</table>
+		</div>
+		<div class = " table-responsive col-sm-4 col-sm-offset-2">					
+			<table class = "table">
+				<caption><b>DRINKS</b></caption>
+				<tr>
+					<th>Name</th>
+					<th>Description</th>
+					<th>Price</th>
+				<td>
+				<tr ng-repeat = "d in vm.restaurant.drinks">
+					<td>{{d.name}}</td>
+					<td>{{d.text}}</td>
+					<td>{{d.price}}</td>
+					<td><button class = "btn btn-success" ng-click = "vm.addDrink($index)">ORDER</button></td>
+				</tr>
+			</table>
+		</div>
+	</div>
+	<div class = "row">
+		<div class = " table-responsive col-sm-4 col-sm-offset-1">					
+			<table class = "table " >
+				<caption><b>ORDERED FOOD</b></caption>
+				<tr>
+					<th>Name</th>
+					<th>Description</th>
+					<th>Price</th>
+				</tr>
+				<tr ng-repeat = "food in vm.orders.foodstuffs">
+					<td>{{food.name}}</td>
+					<td>{{food.text}}</td>
+					<td>{{food.price}}</td>
+					<td><button class = "btn btn-danger" ng-click = "vm.deleteFood($index)">CANCEL</button></td>
+				</tr>
+			</table>
+		</div>
+		<div class = " table-responsive col-sm-4 col-sm-offset-2">					
+			<table class = "table">
+				<caption><b>ORDERED DRINKS</b></caption>
+				<tr>
+					<th>Name</th>
+					<th>Description</th>
+					<th>Price</th>
+				<td>
+				<tr ng-repeat = "drink in vm.orders.drinks">
+					<td>{{drink.name}}</td>
+					<td>{{drink.price}}</td>
+					<td><button class = "btn btn-danger" ng-click = "vm.deleteDrink($index)">CANCEL</button></td>
+				</tr>
+			</table>
+		</div>
+	</div>
+</div>

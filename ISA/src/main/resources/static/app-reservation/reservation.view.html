@@ -1,0 +1,77 @@
+<div>
+	<div  class = "col-sm-1 col-sm-offset-10" style = "float:right">
+		<a ng-click="vm.logout()">Logout</a>
+	</div>
+	<div  class = "col-sm-1" style = "float : left">
+		<a ng-click="vm.back()">Back</a>
+	</div>	
+	<div class="jumbotron">
+
+		<div class="container">
+			<div class = 'row'>
+				<h2 class = "col-sm-6" style = "min-height:70px">
+					<b><u>RESTORAN : {{vm.selectedRestaurant.name}}</u></b>
+				</h2>
+			</div>
+			<div class="row">
+	        	<div class='col-sm-6 '>
+		    		<div class="form-group">
+		        		<label for = "startDate">Select date and time of reservation: </label>
+		            	<div class='input-group date' id='datetimepicker1' >
+		            		<input type='text' class="form-control" id = "startDate" date-time ng-model="$parent.reservationDate" />
+		        			<span class="input-group-addon">
+		            			<span class="glyphicon glyphicon-calendar"></span>
+		              		</span>
+		     	   		</div>
+		   			</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class='col-sm-6 col'>
+					<div class="form-group">
+						<label for = "startDate">Maximum stay until: </label>
+				    	<div class='input-group date' id='datetimepicker3'>
+				        	<input type='text' class="form-control" ng-disabled = "!vm.reservedTimeSelected"/>
+				            <span class="input-group-addon">
+				         		<span class="glyphicon glyphicon-time"></span>
+				         	</span>
+				  		</div>
+					</div>
+				</div>
+			</div>
+			<div class = "row">
+				<div class='col-sm-6 col-sm-offset-4'>
+					<button class = 'btn btn-default' ng-click = "vm.showTables()" ng-disabled = "!vm.reservedTimeSelected && !vm.staySelected">Show available tables</button>
+				</div>
+			</div>
+        </div>
+	</div>
+	
+	<div>
+		<div class = "row" ng-if = "vm.tableView" >
+			<div  style="border:1px solid #cecece" class = "col-sm-8 col-sm-offset-1" ng-repeat = "region in vm.selectedRestaurant.regions">
+				<h4 style = "height:30px">{{region.name}}</h4>
+				<div class='row' ng-show = "vm.rowCheckNumberOfTables($parent.$index,n)" style = "height:100px" ng-repeat = "n in vm.getNumber(region.rowNum)">
+					<span class='col-sm-1' style = "width:70px" ng-repeat = "b in vm.getNumber(region.colNum)">
+						<button ng-click = "vm.addToSelected($parent.$parent.$index,$parent.$index+1,$index+1)"
+						 	ng-class = "{ 'btn-success': vm.checkIfAdded($parent.$parent.$index,$parent.$index+1,$index+1) }"
+						 	ng-show = "vm.getTableOznaka($parent.$parent.$index,$parent.$index+1,$index+1)" class = 'btn btn-default'
+						 	ng-disabled = "vm.getStatus($parent.$parent.$index,$parent.$index+1,$index+1)">
+						{{vm.getTableOznaka($parent.$parent.$index,$parent.$index+1,$index+1)}}
+						</button>
+					</span>		
+				</div>
+			</div>
+			<div>
+				<table>
+					<caption class= 'col-sm-4'><b><u>Selected:</u></b></caption>
+					<tr  ng-repeat="x in vm.selectedTables">
+					    <td class= 'col-sm-3'>Table : {{ x.oznakaStola }}</td>
+				    	<td><button class= "btn btn-danger" ng-click = 'vm.removeFromSelected($index)'>Cancel</button></td>
+					</tr>
+				</table>
+			</div>
+			&nbsp&nbsp<button ng-show = "vm.selectedTables.length > 0" ng-click = "vm.confirmReservation()"class = 'btn btn-success'>RESERVE</button>	
+		</div>
+	</div>
+</div>

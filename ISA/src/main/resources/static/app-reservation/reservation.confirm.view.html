@@ -1,0 +1,93 @@
+<div>
+	<div  class = "col-sm-1 " style = "float:left">
+		<a ng-click = "vm.logout()">Home</a>
+	</div>
+
+	<div align="center" class="alert alert-success"> 
+ 		<strong>INVITATION</strong> 
+	</div>
+
+	<div class = "row">
+		<div class = "col-sm-7">
+			<div class = "row">
+				<div class = "col-sm-7 col-sm-offset-1">
+					<div class = "col-sm-3">
+						<p><b>Restaurant:</b></p>
+					</div>
+					<div style= "min-height:70px"class = "col-sm-3 col-sm-offset-1">
+						<p>{{vm.restaurantOfReservation.name}}</p>
+					</div>
+				</div>
+			</div>
+			<div class = "row">
+				<div class = "col-sm-7 col-sm-offset-1">
+					<div class = "col-sm-3">
+						<p><b>Date</b></p>
+					</div>
+					<div  style= "min-height:70px" class = "col-sm-3 col-sm-offset-1">
+						<p>{{vm.getDateFromReservation("date")}}</p>
+					</div>
+				</div>
+			</div>
+			<div class = "row">
+				<div class = "col-sm-7 col-sm-offset-1">
+					<div class = "col-sm-3">
+						<p><b>Starts :</b></p>
+					</div>
+					<div  style= "min-height:70px" class = "col-sm-3 col-sm-offset-1">
+						<p>{{vm.getDateFromReservation("startTime")}}</p>
+					</div>
+				</div>
+			</div>
+			<div class = "row">
+				<div class = "col-sm-7 col-sm-offset-1">
+					<div class = "col-sm-3">
+						<p><b>Ends :</b></p>
+					</div>
+					<div  style= "min-height:70px" class = "col-sm-7 col-sm-offset-1">
+						<p>{{vm.getDateFromReservation("stayTime")}}</p>
+					</div>
+				</div>
+			</div>
+			<div class = "row">
+				<div class = "col-sm-7 col-sm-offset-1">
+					<div class = "col-sm-3">
+						<p><b>Confirmed inivitation:</b></p>
+					</div>
+					<div  style= "min-height:70px" class = "col-sm-7 col-sm-offset-1">
+						<p><span  ng-repeat = "friend in vm.confirmedInvitation"> {{friend.firstName}} {{friend.lastName}}; </span></p>
+					</div>
+				</div>
+			</div>
+			<div class = "row">
+				<div class = "col-sm-7 col-sm-offset-1">
+					<div class = "col-sm-3">
+						<p><b>Waiting for response:</b></p>
+					</div>
+					<div  style= "min-height:70px" class = "col-sm-7 col-sm-offset-1">
+						<p><span ng-repeat = "friend in vm.invitedFriends"> {{friend.firstName}} {{friend.lastName}}; </span></p>
+					</div>
+				</div>
+			</div>
+			<div class = "row">
+				<div class = "col-sm-7 col-sm-offset-1">
+					<div class = "col-sm-3">
+						<button class = "btn btn-success" ng-show = "vm.checkIfConfirmed()" ng-click = "vm.acceptInvitation()">Accept</button>
+					</div>
+					<div  style= "min-height:70px" class = "col-sm-7 col-sm-offset-1">
+						<button class = "btn btn-danger" ng-show = "vm.checkIfConfirmed()" ng-click = "vm.declineInvitation()">Decline</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class = "col-sm-5">
+		</div>
+	</div>
+	<div class = "row">
+		<div class = "col-sm-2 col-sm-offset-10" >
+			<button ng-show = "vm.checkIfAccepted()" style = "min-width:150px" class = "btn btn-success" ng-click = "vm.order()">Order</button>
+		</div>
+	</div>
+</div>
+
